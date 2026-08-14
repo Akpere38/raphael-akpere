@@ -15,11 +15,14 @@ export const Hero: React.FC = () => {
         }}
       />
       <div className="relative z-10 flex flex-col items-center max-w-3xl px-4 space-y-8 animate-fade-in">
-        <img
-          alt="Raphael Akpere Logo"
-          className="w-24 h-24 mb-4 rounded-xl border border-outline-variant shadow-lg"
-          src="https://lh3.googleusercontent.com/aida-public/AB6AXuBN28gMUIbVUSBte5pNn7LveEUjFVTTJunyaINrZkbWpGorNF3qTrnOOlHhZ1mHvw_Few3YNPD84Q2yjeKXbc5qC772RJMq1sq5SGAoURIlcabAru32_q9yXfjnFF8M6cbtXh3v_OqLKZ_O-mfDAeCGvNrWRERYdnkSNvNbSzs9uWkg-MPvjbrs1xr5aue511roYZrVrMOPnHKZWpGRZ0YGGBFetXorWQr48pOhIBph_oyOLsapgQc"
-        />
+        <div className="relative group mb-2">
+          <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-indigo-500 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-500"></div>
+          <img
+            alt="Raphael Akpere, Data Analyst and Software Developer"
+            className="relative w-28 h-28 md:w-36 md:h-36 rounded-2xl border-2 border-[#334155] object-cover object-top shadow-xl"
+            src="/raphael-akpere-profile.png"
+          />
+        </div>
         <h1 className="font-display text-4xl md:text-[56px] text-white leading-tight font-bold">
           Data, Software &amp; <br />
           <span className="text-[#3B82F6]">Digital Solutions</span>
