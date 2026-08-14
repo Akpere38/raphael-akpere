@@ -43,17 +43,17 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
             {navLinks.map((link) => {
               const isActive = location === link.href;
               return (
-                <Link key={link.href} href={link.href}>
-                  <a
-                    className={`flex items-center space-x-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors cursor-pointer ${
-                      isActive
-                        ? 'bg-[#3B82F6] text-white'
-                        : 'text-on-surface-variant hover:bg-[#0F172A] hover:text-white'
-                    }`}
-                  >
-                    <span className="material-symbols-outlined">{link.icon}</span>
-                    <span>{link.label}</span>
-                  </a>
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`flex items-center space-x-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors cursor-pointer ${
+                    isActive
+                      ? 'bg-[#3B82F6] text-white'
+                      : 'text-on-surface-variant hover:bg-[#0F172A] hover:text-white'
+                  }`}
+                >
+                  <span className="material-symbols-outlined">{link.icon}</span>
+                  <span>{link.label}</span>
                 </Link>
               );
             })}
@@ -62,11 +62,12 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
 
         {/* Footer Area / Logout */}
         <div className="p-4 border-t border-[#334155] space-y-2">
-          <Link href="/">
-            <a className="flex items-center space-x-3 px-4 py-2.5 text-xs text-on-surface-variant hover:text-white transition-colors cursor-pointer">
-              <span className="material-symbols-outlined text-[18px]">home</span>
-              <span>Back to Public Site</span>
-            </a>
+          <Link
+            href="/"
+            className="flex items-center space-x-3 px-4 py-2.5 text-xs text-on-surface-variant hover:text-white transition-colors cursor-pointer"
+          >
+            <span className="material-symbols-outlined text-[18px]">home</span>
+            <span>Back to Public Site</span>
           </Link>
           <button
             onClick={handleLogout}

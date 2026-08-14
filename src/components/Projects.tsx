@@ -91,11 +91,12 @@ export const Projects: React.FC = () => {
                 <p className="text-sm text-on-surface-variant leading-relaxed">{project.description}</p>
               </div>
               <div className="mt-6">
-                <Link href={`/projects/${project.slug}`}>
-                  <a className="inline-flex items-center text-xs text-[#3B82F6] font-semibold group-hover:translate-x-1 transition-transform cursor-pointer">
-                    <span>Learn more</span>
-                    <span className="material-symbols-outlined text-[16px] ml-1">arrow_forward</span>
-                  </a>
+                <Link
+                  href={`/projects/${project.slug}`}
+                  className="inline-flex items-center text-xs text-[#3B82F6] font-semibold group-hover:translate-x-1 transition-transform cursor-pointer"
+                >
+                  <span>Learn more</span>
+                  <span className="material-symbols-outlined text-[16px] ml-1">arrow_forward</span>
                 </Link>
               </div>
             </div>
@@ -105,3 +106,4 @@ export const Projects: React.FC = () => {
     </section>
   );
 };
+export default Projects;

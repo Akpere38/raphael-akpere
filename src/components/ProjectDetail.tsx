@@ -60,10 +60,11 @@ export const ProjectDetail: React.FC = () => {
           <span className="material-symbols-outlined text-error text-6xl">error</span>
           <h2 className="text-2xl font-bold text-white">Oops! Project Details Unavailable</h2>
           <p className="text-on-surface-variant max-w-md">{error || 'This project might not exist or has been unpublished.'}</p>
-          <Link href="/">
-            <a className="inline-flex justify-center items-center px-6 py-2.5 bg-[#3B82F6] text-white font-semibold rounded-lg hover:bg-blue-600 transition-colors">
-              Return to Portfolio
-            </a>
+          <Link
+            href="/"
+            className="inline-flex justify-center items-center px-6 py-2.5 bg-[#3B82F6] text-white font-semibold rounded-lg hover:bg-blue-600 transition-colors"
+          >
+            Return to Portfolio
           </Link>
         </div>
         <Footer />
@@ -77,11 +78,12 @@ export const ProjectDetail: React.FC = () => {
       <main className="pt-28 pb-16 px-margin-mobile md:px-gutter max-w-container-max mx-auto space-y-8 animate-fade-in">
         
         {/* Back Link */}
-        <Link href="/">
-          <a className="inline-flex items-center text-[#3B82F6] font-semibold hover:underline cursor-pointer">
-            <span className="material-symbols-outlined text-[18px] mr-1">arrow_back</span>
-            Back to Portfolio
-          </a>
+        <Link
+          href="/"
+          className="inline-flex items-center text-[#3B82F6] font-semibold hover:underline cursor-pointer"
+        >
+          <span className="material-symbols-outlined text-[18px] mr-1">arrow_back</span>
+          Back to Portfolio
         </Link>
 
         <div className="glass-panel p-8 rounded-2xl border border-outline-variant bg-[#1E293B] space-y-8">

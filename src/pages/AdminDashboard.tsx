@@ -82,10 +82,11 @@ export const AdminDashboard: React.FC = () => {
                 {stats.publishedCount} active / published online
               </p>
             </div>
-            <Link href="/admin/projects">
-              <a className="inline-flex items-center text-xs font-semibold text-[#3B82F6] hover:underline cursor-pointer">
-                Manage projects <span className="material-symbols-outlined text-[14px] ml-1">arrow_forward</span>
-              </a>
+            <Link
+              href="/admin/projects"
+              className="inline-flex items-center text-xs font-semibold text-[#3B82F6] hover:underline cursor-pointer"
+            >
+              Manage projects <span className="material-symbols-outlined text-[14px] ml-1">arrow_forward</span>
             </Link>
           </div>
 
@@ -103,10 +104,11 @@ export const AdminDashboard: React.FC = () => {
                 {stats.unreadMessagesCount} unread message inquiries
               </p>
             </div>
-            <Link href="/admin/messages">
-              <a className="inline-flex items-center text-xs font-semibold text-[#3B82F6] hover:underline cursor-pointer">
-                View inquiries <span className="material-symbols-outlined text-[14px] ml-1">arrow_forward</span>
-              </a>
+            <Link
+              href="/admin/messages"
+              className="inline-flex items-center text-xs font-semibold text-[#3B82F6] hover:underline cursor-pointer"
+            >
+              View inquiries <span className="material-symbols-outlined text-[14px] ml-1">arrow_forward</span>
             </Link>
           </div>
 
@@ -122,10 +124,11 @@ export const AdminDashboard: React.FC = () => {
                 Managed from CV Manager
               </p>
             </div>
-            <Link href="/admin/cv">
-              <a className="inline-flex items-center text-xs font-semibold text-[#3B82F6] hover:underline cursor-pointer">
-                CV management <span className="material-symbols-outlined text-[14px] ml-1">arrow_forward</span>
-              </a>
+            <Link
+              href="/admin/cv"
+              className="inline-flex items-center text-xs font-semibold text-[#3B82F6] hover:underline cursor-pointer"
+            >
+              CV management <span className="material-symbols-outlined text-[14px] ml-1">arrow_forward</span>
             </Link>
           </div>
         </div>
