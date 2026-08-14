@@ -10,6 +10,22 @@ const app = express();
 app.use(express.json({ limit: '10mb' }));
 app.use(cookieParser());
 
+// CORS configuration matching Vercel domain and localhost for dev
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  const allowedOrigins = ['https://akpereraphael.vercel.app', 'http://localhost:5173'];
+  if (origin && allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  }
+  res.setHeader('Access-Control-Allow-Methods', 'GET, HEAD, POST, PUT, DELETE, PATCH, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(200);
+  }
+  next();
+});
+
 // Multer in-memory storage configuration for handling file uploads (e.g. CV PDF)
 const storage = multer.memoryStorage();
 const upload = multer({
