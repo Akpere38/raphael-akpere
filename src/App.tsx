@@ -14,6 +14,9 @@ import { ProjectDetail } from './components/ProjectDetail';
 import { AdminLogin } from './pages/AdminLogin';
 import { AdminDashboard } from './pages/AdminDashboard';
 import { AdminProjects } from './pages/AdminProjects';
+import { AdminExperience } from './pages/AdminExperience';
+import { AdminEducation } from './pages/AdminEducation';
+import { AdminSkills } from './pages/AdminSkills';
 import { AdminMessages } from './pages/AdminMessages';
 import { AdminCV } from './pages/AdminCV';
 
@@ -50,6 +53,9 @@ function App() {
         {/* Protected Admin Routes */}
         <Route path="/admin" component={AdminDashboard} />
         <Route path="/admin/projects" component={AdminProjects} />
+        <Route path="/admin/experience" component={AdminExperience} />
+        <Route path="/admin/education" component={AdminEducation} />
+        <Route path="/admin/skills" component={AdminSkills} />
         <Route path="/admin/messages" component={AdminMessages} />
         <Route path="/admin/cv" component={AdminCV} />
 

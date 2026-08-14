@@ -22,6 +22,9 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
   const navLinks = [
     { label: 'Dashboard', href: '/admin', icon: 'dashboard' },
     { label: 'Projects', href: '/admin/projects', icon: 'code' },
+    { label: 'Experience', href: '/admin/experience', icon: 'work' },
+    { label: 'Education & Certs', href: '/admin/education', icon: 'school' },
+    { label: 'Technical Skills', href: '/admin/skills', icon: 'monitoring' },
     { label: 'CV Manager', href: '/admin/cv', icon: 'file_present' },
     { label: 'Messages', href: '/admin/messages', icon: 'mail' },
   ];

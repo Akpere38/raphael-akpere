@@ -134,6 +134,102 @@ let mockProjects: any[] = [
 let mockInquiries: any[] = [];
 let mockCv: { filename: string; mime_type: string; file_data: Buffer } | null = null;
 
+let mockExperiences: any[] = [
+  {
+    id: 1,
+    role: 'Data Analyst',
+    company: 'Big Data Consult',
+    location: 'Nigeria',
+    duration: 'Jan 2024 – Present',
+    highlights: [
+      'Perform core data analysis and deliver actionable business intelligence reports.',
+      'Develop interactive, real-time KPI dashboards using Power BI and Streamlit.',
+      'Optimize database queries and data ingestion workflows using Python and SQL.',
+      'Conduct workflow analysis to identify bottlenecks and improve overall data quality.'
+    ],
+    display_order: 1,
+    created_at: new Date()
+  },
+  {
+    id: 2,
+    role: 'Senior IT Administrative Staff / Project Manager',
+    company: 'Lins Consult',
+    location: 'Nigeria',
+    duration: 'Oct 2022 – Present',
+    highlights: [
+      'Manage IT administration and operational project planning.',
+      'Coordinate cross-functional teams to align project deliverables with client requirements.',
+      'Research technical solutions and provide progress reports to stakeholders.',
+      'Maintain operational monitoring pipelines to track project health and milestones.'
+    ],
+    display_order: 2,
+    created_at: new Date()
+  }
+];
+
+let mockEducation: any[] = [
+  {
+    id: 1,
+    degree: 'Bachelor of Science in Computer Science',
+    institution: 'National Open University of Nigeria',
+    year: 'Expected 2027',
+    display_order: 1,
+    created_at: new Date()
+  },
+  {
+    id: 2,
+    degree: 'Ordinary National Diploma – Science Laboratory Technology',
+    institution: 'Delta State Polytechnic, Otefe',
+    year: '2015',
+    display_order: 2,
+    created_at: new Date()
+  }
+];
+
+let mockCertifications: any[] = [
+  {
+    id: 1,
+    name: 'Google Advanced Data Analytics Professional Certificate',
+    year: '2024',
+    display_order: 1,
+    created_at: new Date()
+  },
+  {
+    id: 2,
+    name: 'Python Developer Certificate',
+    year: '2023',
+    display_order: 2,
+    created_at: new Date()
+  }
+];
+
+let mockSkills: any[] = [
+  {
+    id: 1,
+    title: 'Data & Analytics',
+    icon: 'query_stats',
+    skills: ['SQL', 'Python', 'Pandas', 'NumPy', 'Excel', 'Power BI', 'Tableau', 'Streamlit', 'Statistical Analysis'],
+    display_order: 1,
+    created_at: new Date()
+  },
+  {
+    id: 2,
+    title: 'Software Development',
+    icon: 'code',
+    skills: ['FastAPI', 'REST APIs', 'PostgreSQL', 'SQLAlchemy / SQLModel', 'Alembic', 'React', 'Vite', 'Next.js', 'Tailwind CSS'],
+    display_order: 2,
+    created_at: new Date()
+  },
+  {
+    id: 3,
+    title: 'Tools & Platforms',
+    icon: 'build',
+    skills: ['Git', 'GitHub', 'Supabase', 'Redis', 'Postman'],
+    display_order: 3,
+    created_at: new Date()
+  }
+];
+
 // Database tables helper function
 async function initDb() {
   if (!sql) return;
@@ -175,6 +271,47 @@ async function initDb() {
         uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `;
+    await sql`
+      CREATE TABLE IF NOT EXISTS experiences (
+        id SERIAL PRIMARY KEY,
+        role VARCHAR(255) NOT NULL,
+        company VARCHAR(255) NOT NULL,
+        location VARCHAR(255) NOT NULL,
+        duration VARCHAR(255) NOT NULL,
+        highlights TEXT[] NOT NULL,
+        display_order INTEGER DEFAULT 0,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
+    `;
+    await sql`
+      CREATE TABLE IF NOT EXISTS education (
+        id SERIAL PRIMARY KEY,
+        degree VARCHAR(255) NOT NULL,
+        institution VARCHAR(255) NOT NULL,
+        year VARCHAR(100) NOT NULL,
+        display_order INTEGER DEFAULT 0,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
+    `;
+    await sql`
+      CREATE TABLE IF NOT EXISTS certifications (
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(255) NOT NULL,
+        year VARCHAR(100) NOT NULL,
+        display_order INTEGER DEFAULT 0,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
+    `;
+    await sql`
+      CREATE TABLE IF NOT EXISTS skill_categories (
+        id SERIAL PRIMARY KEY,
+        title VARCHAR(255) NOT NULL,
+        icon VARCHAR(100) NOT NULL,
+        skills TEXT[] NOT NULL,
+        display_order INTEGER DEFAULT 0,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
+    `;
 
     // Seed default projects if projects table is empty
     const countResult = await sql`SELECT COUNT(*)::int as count FROM projects`;
@@ -186,6 +323,51 @@ async function initDb() {
         `;
       }
     }
+
+    // Seed experiences
+    const expCount = await sql`SELECT COUNT(*)::int as count FROM experiences`;
+    if (expCount[0].count === 0) {
+      for (const e of mockExperiences) {
+        await sql`
+          INSERT INTO experiences (role, company, location, duration, highlights, display_order)
+          VALUES (${e.role}, ${e.company}, ${e.location}, ${e.duration}, ${e.highlights}, ${e.display_order})
+        `;
+      }
+    }
+
+    // Seed education
+    const eduCount = await sql`SELECT COUNT(*)::int as count FROM education`;
+    if (eduCount[0].count === 0) {
+      for (const ed of mockEducation) {
+        await sql`
+          INSERT INTO education (degree, institution, year, display_order)
+          VALUES (${ed.degree}, ${ed.institution}, ${ed.year}, ${ed.display_order})
+        `;
+      }
+    }
+
+    // Seed certifications
+    const certCount = await sql`SELECT COUNT(*)::int as count FROM certifications`;
+    if (certCount[0].count === 0) {
+      for (const c of mockCertifications) {
+        await sql`
+          INSERT INTO certifications (name, year, display_order)
+          VALUES (${c.name}, ${c.year}, ${c.display_order})
+        `;
+      }
+    }
+
+    // Seed skills
+    const skillCount = await sql`SELECT COUNT(*)::int as count FROM skill_categories`;
+    if (skillCount[0].count === 0) {
+      for (const s of mockSkills) {
+        await sql`
+          INSERT INTO skill_categories (title, icon, skills, display_order)
+          VALUES (${s.title}, ${s.icon}, ${s.skills}, ${s.display_order})
+        `;
+      }
+    }
+
     console.log('Database tables successfully verified and initialized.');
   } catch (err) {
     console.error('Database migration/init failed:', err);
@@ -613,6 +795,356 @@ app.post('/api/admin/cv', authenticateAdmin, upload.single('cv'), async (req, re
     return res.json({ success: true, message: 'CV uploaded successfully!' });
   } catch (err: any) {
     return res.status(500).json({ error: 'Failed to save CV upload', details: err.message });
+  }
+});
+
+/* ── EXPERIENCE PUBLIC & ADMIN ENDPOINTS ── */
+
+app.get('/api/experience', async (req, res) => {
+  try {
+    if (sql) {
+      const items = await sql`SELECT * FROM experiences ORDER BY display_order ASC, id ASC`;
+      return res.json(items);
+    } else {
+      return res.json([...mockExperiences].sort((a, b) => a.display_order - b.display_order));
+    }
+  } catch (err: any) {
+    return res.status(500).json({ error: 'Failed to fetch experiences', details: err.message });
+  }
+});
+
+app.get('/api/admin/experience', authenticateAdmin, async (req, res) => {
+  try {
+    if (sql) {
+      const items = await sql`SELECT * FROM experiences ORDER BY display_order ASC, id ASC`;
+      return res.json(items);
+    } else {
+      return res.json([...mockExperiences].sort((a, b) => a.display_order - b.display_order));
+    }
+  } catch (err: any) {
+    return res.status(500).json({ error: 'Failed to fetch experiences', details: err.message });
+  }
+});
+
+app.post('/api/admin/experience', authenticateAdmin, async (req, res) => {
+  const { role, company, location, duration, highlights, display_order } = req.body;
+  if (!role || !company || !location || !duration) {
+    return res.status(400).json({ error: 'Role, company, location, and duration are required.' });
+  }
+  const cleanHighlights = Array.isArray(highlights) ? highlights : [];
+  const order = typeof display_order === 'number' ? display_order : 0;
+  try {
+    if (sql) {
+      const inserted = await sql`
+        INSERT INTO experiences (role, company, location, duration, highlights, display_order)
+        VALUES (${role}, ${company}, ${location}, ${duration}, ${cleanHighlights}, ${order})
+        RETURNING *
+      `;
+      return res.status(201).json(inserted[0]);
+    } else {
+      const newItem = {
+        id: Date.now(),
+        role,
+        company,
+        location,
+        duration,
+        highlights: cleanHighlights,
+        display_order: order,
+        created_at: new Date()
+      };
+      mockExperiences.push(newItem);
+      return res.status(201).json(newItem);
+    }
+  } catch (err: any) {
+    return res.status(500).json({ error: 'Failed to create experience', details: err.message });
+  }
+});
+
+app.put('/api/admin/experience/:id', authenticateAdmin, async (req, res) => {
+  const { id } = req.params;
+  const { role, company, location, duration, highlights, display_order } = req.body;
+  const cleanHighlights = Array.isArray(highlights) ? highlights : [];
+  try {
+    if (sql) {
+      const updated = await sql`
+        UPDATE experiences
+        SET role = ${role}, company = ${company}, location = ${location}, duration = ${duration}, highlights = ${cleanHighlights}, display_order = ${display_order}
+        WHERE id = ${id}
+        RETURNING *
+      `;
+      if (updated.length === 0) return res.status(404).json({ error: 'Experience not found' });
+      return res.json(updated[0]);
+    } else {
+      const idx = mockExperiences.findIndex((e) => e.id === Number(id));
+      if (idx === -1) return res.status(404).json({ error: 'Experience not found' });
+      mockExperiences[idx] = { ...mockExperiences[idx], role, company, location, duration, highlights: cleanHighlights, display_order };
+      return res.json(mockExperiences[idx]);
+    }
+  } catch (err: any) {
+    return res.status(500).json({ error: 'Failed to update experience', details: err.message });
+  }
+});
+
+app.delete('/api/admin/experience/:id', authenticateAdmin, async (req, res) => {
+  const { id } = req.params;
+  try {
+    if (sql) {
+      await sql`DELETE FROM experiences WHERE id = ${id}`;
+    } else {
+      mockExperiences = mockExperiences.filter((e) => e.id !== Number(id));
+    }
+    return res.json({ success: true, message: 'Experience deleted successfully' });
+  } catch (err: any) {
+    return res.status(500).json({ error: 'Failed to delete experience', details: err.message });
+  }
+});
+
+/* ── EDUCATION & CERTIFICATIONS ENDPOINTS ── */
+
+app.get('/api/education', async (req, res) => {
+  try {
+    if (sql) {
+      const education = await sql`SELECT * FROM education ORDER BY display_order ASC, id ASC`;
+      const certifications = await sql`SELECT * FROM certifications ORDER BY display_order ASC, id ASC`;
+      return res.json({ education, certifications });
+    } else {
+      return res.json({
+        education: [...mockEducation].sort((a, b) => a.display_order - b.display_order),
+        certifications: [...mockCertifications].sort((a, b) => a.display_order - b.display_order)
+      });
+    }
+  } catch (err: any) {
+    return res.status(500).json({ error: 'Failed to fetch education and certifications', details: err.message });
+  }
+});
+
+app.get('/api/admin/education', authenticateAdmin, async (req, res) => {
+  try {
+    if (sql) {
+      const education = await sql`SELECT * FROM education ORDER BY display_order ASC, id ASC`;
+      const certifications = await sql`SELECT * FROM certifications ORDER BY display_order ASC, id ASC`;
+      return res.json({ education, certifications });
+    } else {
+      return res.json({
+        education: [...mockEducation].sort((a, b) => a.display_order - b.display_order),
+        certifications: [...mockCertifications].sort((a, b) => a.display_order - b.display_order)
+      });
+    }
+  } catch (err: any) {
+    return res.status(500).json({ error: 'Failed to fetch education data', details: err.message });
+  }
+});
+
+app.post('/api/admin/education', authenticateAdmin, async (req, res) => {
+  const { degree, institution, year, display_order } = req.body;
+  if (!degree || !institution || !year) {
+    return res.status(400).json({ error: 'Degree, institution, and year are required.' });
+  }
+  try {
+    if (sql) {
+      const inserted = await sql`
+        INSERT INTO education (degree, institution, year, display_order)
+        VALUES (${degree}, ${institution}, ${year}, ${display_order || 0})
+        RETURNING *
+      `;
+      return res.status(201).json(inserted[0]);
+    } else {
+      const newItem = { id: Date.now(), degree, institution, year, display_order: display_order || 0, created_at: new Date() };
+      mockEducation.push(newItem);
+      return res.status(201).json(newItem);
+    }
+  } catch (err: any) {
+    return res.status(500).json({ error: 'Failed to add education', details: err.message });
+  }
+});
+
+app.put('/api/admin/education/:id', authenticateAdmin, async (req, res) => {
+  const { id } = req.params;
+  const { degree, institution, year, display_order } = req.body;
+  try {
+    if (sql) {
+      const updated = await sql`
+        UPDATE education
+        SET degree = ${degree}, institution = ${institution}, year = ${year}, display_order = ${display_order}
+        WHERE id = ${id}
+        RETURNING *
+      `;
+      if (updated.length === 0) return res.status(404).json({ error: 'Education entry not found' });
+      return res.json(updated[0]);
+    } else {
+      const idx = mockEducation.findIndex((e) => e.id === Number(id));
+      if (idx === -1) return res.status(404).json({ error: 'Education entry not found' });
+      mockEducation[idx] = { ...mockEducation[idx], degree, institution, year, display_order };
+      return res.json(mockEducation[idx]);
+    }
+  } catch (err: any) {
+    return res.status(500).json({ error: 'Failed to update education entry', details: err.message });
+  }
+});
+
+app.delete('/api/admin/education/:id', authenticateAdmin, async (req, res) => {
+  const { id } = req.params;
+  try {
+    if (sql) {
+      await sql`DELETE FROM education WHERE id = ${id}`;
+    } else {
+      mockEducation = mockEducation.filter((e) => e.id !== Number(id));
+    }
+    return res.json({ success: true, message: 'Education entry deleted successfully' });
+  } catch (err: any) {
+    return res.status(500).json({ error: 'Failed to delete education entry', details: err.message });
+  }
+});
+
+app.post('/api/admin/certifications', authenticateAdmin, async (req, res) => {
+  const { name, year, display_order } = req.body;
+  if (!name || !year) {
+    return res.status(400).json({ error: 'Certification name and year are required.' });
+  }
+  try {
+    if (sql) {
+      const inserted = await sql`
+        INSERT INTO certifications (name, year, display_order)
+        VALUES (${name}, ${year}, ${display_order || 0})
+        RETURNING *
+      `;
+      return res.status(201).json(inserted[0]);
+    } else {
+      const newItem = { id: Date.now(), name, year, display_order: display_order || 0, created_at: new Date() };
+      mockCertifications.push(newItem);
+      return res.status(201).json(newItem);
+    }
+  } catch (err: any) {
+    return res.status(500).json({ error: 'Failed to add certification', details: err.message });
+  }
+});
+
+app.put('/api/admin/certifications/:id', authenticateAdmin, async (req, res) => {
+  const { id } = req.params;
+  const { name, year, display_order } = req.body;
+  try {
+    if (sql) {
+      const updated = await sql`
+        UPDATE certifications
+        SET name = ${name}, year = ${year}, display_order = ${display_order}
+        WHERE id = ${id}
+        RETURNING *
+      `;
+      if (updated.length === 0) return res.status(404).json({ error: 'Certification not found' });
+      return res.json(updated[0]);
+    } else {
+      const idx = mockCertifications.findIndex((c) => c.id === Number(id));
+      if (idx === -1) return res.status(404).json({ error: 'Certification not found' });
+      mockCertifications[idx] = { ...mockCertifications[idx], name, year, display_order };
+      return res.json(mockCertifications[idx]);
+    }
+  } catch (err: any) {
+    return res.status(500).json({ error: 'Failed to update certification', details: err.message });
+  }
+});
+
+app.delete('/api/admin/certifications/:id', authenticateAdmin, async (req, res) => {
+  const { id } = req.params;
+  try {
+    if (sql) {
+      await sql`DELETE FROM certifications WHERE id = ${id}`;
+    } else {
+      mockCertifications = mockCertifications.filter((c) => c.id !== Number(id));
+    }
+    return res.json({ success: true, message: 'Certification deleted successfully' });
+  } catch (err: any) {
+    return res.status(500).json({ error: 'Failed to delete certification', details: err.message });
+  }
+});
+
+/* ── SKILLS / TECHNICAL CAPABILITIES ENDPOINTS ── */
+
+app.get('/api/skills', async (req, res) => {
+  try {
+    if (sql) {
+      const skills = await sql`SELECT * FROM skill_categories ORDER BY display_order ASC, id ASC`;
+      return res.json(skills);
+    } else {
+      return res.json([...mockSkills].sort((a, b) => a.display_order - b.display_order));
+    }
+  } catch (err: any) {
+    return res.status(500).json({ error: 'Failed to fetch skill categories', details: err.message });
+  }
+});
+
+app.get('/api/admin/skills', authenticateAdmin, async (req, res) => {
+  try {
+    if (sql) {
+      const skills = await sql`SELECT * FROM skill_categories ORDER BY display_order ASC, id ASC`;
+      return res.json(skills);
+    } else {
+      return res.json([...mockSkills].sort((a, b) => a.display_order - b.display_order));
+    }
+  } catch (err: any) {
+    return res.status(500).json({ error: 'Failed to fetch skill categories', details: err.message });
+  }
+});
+
+app.post('/api/admin/skills', authenticateAdmin, async (req, res) => {
+  const { title, icon, skills, display_order } = req.body;
+  if (!title || !icon) {
+    return res.status(400).json({ error: 'Title and icon are required.' });
+  }
+  const cleanSkills = Array.isArray(skills) ? skills : [];
+  try {
+    if (sql) {
+      const inserted = await sql`
+        INSERT INTO skill_categories (title, icon, skills, display_order)
+        VALUES (${title}, ${icon}, ${cleanSkills}, ${display_order || 0})
+        RETURNING *
+      `;
+      return res.status(201).json(inserted[0]);
+    } else {
+      const newItem = { id: Date.now(), title, icon, skills: cleanSkills, display_order: display_order || 0, created_at: new Date() };
+      mockSkills.push(newItem);
+      return res.status(201).json(newItem);
+    }
+  } catch (err: any) {
+    return res.status(500).json({ error: 'Failed to add skill category', details: err.message });
+  }
+});
+
+app.put('/api/admin/skills/:id', authenticateAdmin, async (req, res) => {
+  const { id } = req.params;
+  const { title, icon, skills, display_order } = req.body;
+  const cleanSkills = Array.isArray(skills) ? skills : [];
+  try {
+    if (sql) {
+      const updated = await sql`
+        UPDATE skill_categories
+        SET title = ${title}, icon = ${icon}, skills = ${cleanSkills}, display_order = ${display_order}
+        WHERE id = ${id}
+        RETURNING *
+      `;
+      if (updated.length === 0) return res.status(404).json({ error: 'Skill category not found' });
+      return res.json(updated[0]);
+    } else {
+      const idx = mockSkills.findIndex((s) => s.id === Number(id));
+      if (idx === -1) return res.status(404).json({ error: 'Skill category not found' });
+      mockSkills[idx] = { ...mockSkills[idx], title, icon, skills: cleanSkills, display_order };
+      return res.json(mockSkills[idx]);
+    }
+  } catch (err: any) {
+    return res.status(500).json({ error: 'Failed to update skill category', details: err.message });
+  }
+});
+
+app.delete('/api/admin/skills/:id', authenticateAdmin, async (req, res) => {
+  const { id } = req.params;
+  try {
+    if (sql) {
+      await sql`DELETE FROM skill_categories WHERE id = ${id}`;
+    } else {
+      mockSkills = mockSkills.filter((s) => s.id !== Number(id));
+    }
+    return res.json({ success: true, message: 'Skill category deleted successfully' });
+  } catch (err: any) {
+    return res.status(500).json({ error: 'Failed to delete skill category', details: err.message });
   }
 });
 

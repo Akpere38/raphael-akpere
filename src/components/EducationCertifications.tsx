@@ -12,7 +12,7 @@ interface Certification {
 }
 
 export const EducationCertifications: React.FC = () => {
-  const education: Degree[] = [
+  const [education, setEducation] = React.useState<Degree[]>([
     {
       degree: 'Bachelor of Science in Computer Science',
       institution: 'National Open University of Nigeria',
@@ -23,9 +23,9 @@ export const EducationCertifications: React.FC = () => {
       institution: 'Delta State Polytechnic, Otefe',
       year: '2015',
     },
-  ];
+  ]);
 
-  const certifications: Certification[] = [
+  const [certifications, setCertifications] = React.useState<Certification[]>([
     {
       name: 'Google Advanced Data Analytics Professional Certificate',
       year: '2024',
@@ -34,7 +34,26 @@ export const EducationCertifications: React.FC = () => {
       name: 'Python Developer Certificate',
       year: '2023',
     },
-  ];
+  ]);
+
+  React.useEffect(() => {
+    fetch('/api/education')
+      .then((res) => {
+        if (res.ok) return res.json();
+        throw new Error();
+      })
+      .then((data) => {
+        if (data) {
+          if (Array.isArray(data.education) && data.education.length > 0) {
+            setEducation(data.education);
+          }
+          if (Array.isArray(data.certifications) && data.certifications.length > 0) {
+            setCertifications(data.certifications);
+          }
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   return (
     <section className="space-y-12" id="education">

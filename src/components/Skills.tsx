@@ -7,7 +7,7 @@ interface SkillCategory {
 }
 
 export const Skills: React.FC = () => {
-  const categories: SkillCategory[] = [
+  const [categories, setCategories] = React.useState<SkillCategory[]>([
     {
       title: 'Data & Analytics',
       icon: 'query_stats',
@@ -43,7 +43,21 @@ export const Skills: React.FC = () => {
       icon: 'build',
       skills: ['Git', 'GitHub', 'Supabase', 'Redis', 'Postman'],
     },
-  ];
+  ]);
+
+  React.useEffect(() => {
+    fetch('/api/skills')
+      .then((res) => {
+        if (res.ok) return res.json();
+        throw new Error();
+      })
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          setCategories(data);
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   return (
     <section className="space-y-12" id="skills">

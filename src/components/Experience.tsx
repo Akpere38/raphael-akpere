@@ -9,7 +9,7 @@ interface Position {
 }
 
 export const Experience: React.FC = () => {
-  const positions: Position[] = [
+  const [positions, setPositions] = React.useState<Position[]>([
     {
       role: 'Data Analyst',
       company: 'Big Data Consult',
@@ -34,7 +34,21 @@ export const Experience: React.FC = () => {
         'Maintain operational monitoring pipelines to track project health and milestones.',
       ],
     },
-  ];
+  ]);
+
+  React.useEffect(() => {
+    fetch('/api/experience')
+      .then((res) => {
+        if (res.ok) return res.json();
+        throw new Error();
+      })
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          setPositions(data);
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   return (
     <section className="space-y-12" id="experience">

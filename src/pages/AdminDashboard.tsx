@@ -8,12 +8,16 @@ export const AdminDashboard: React.FC = () => {
     publishedCount: 0,
     messagesCount: 0,
     unreadMessagesCount: 0,
+    experienceCount: 0,
+    educationCount: 0,
+    certificationsCount: 0,
+    skillsCategoriesCount: 0,
   });
   const [loading, setLoading] = useState(true);
   const [, setLocation] = useLocation();
 
   useEffect(() => {
-    // Basic verification of authentication on mount
+    // Verify auth
     fetch('/api/auth/status')
       .then((res) => res.json())
       .then((data) => {
@@ -23,23 +27,24 @@ export const AdminDashboard: React.FC = () => {
       })
       .catch(() => setLocation('/admin/login'));
 
-    // Fetch projects and messages to compute stats
+    // Fetch metrics across modules
     Promise.all([
-      fetch('/api/admin/projects').then((res) => {
-        if (!res.ok) throw new Error();
-        return res.json();
-      }),
-      fetch('/api/admin/messages').then((res) => {
-        if (!res.ok) throw new Error();
-        return res.json();
-      }),
+      fetch('/api/admin/projects').then((res) => (res.ok ? res.json() : [])),
+      fetch('/api/admin/messages').then((res) => (res.ok ? res.json() : [])),
+      fetch('/api/admin/experience').then((res) => (res.ok ? res.json() : [])),
+      fetch('/api/admin/education').then((res) => (res.ok ? res.json() : { education: [], certifications: [] })),
+      fetch('/api/admin/skills').then((res) => (res.ok ? res.json() : [])),
     ])
-      .then(([projects, messages]) => {
+      .then(([projects, messages, exp, eduData, skills]) => {
         setStats({
-          projectsCount: projects.length,
-          publishedCount: projects.filter((p: any) => p.published).length,
-          messagesCount: messages.length,
-          unreadMessagesCount: messages.filter((m: any) => m.status === 'NEW').length,
+          projectsCount: projects.length || 0,
+          publishedCount: projects.filter((p: any) => p.published).length || 0,
+          messagesCount: messages.length || 0,
+          unreadMessagesCount: messages.filter((m: any) => m.status === 'NEW').length || 0,
+          experienceCount: exp.length || 0,
+          educationCount: (eduData.education || []).length,
+          certificationsCount: (eduData.certifications || []).length,
+          skillsCategoriesCount: skills.length || 0,
         });
         setLoading(false);
       })
@@ -65,7 +70,7 @@ export const AdminDashboard: React.FC = () => {
         {/* Welcome Section */}
         <div className="space-y-2">
           <h1 className="text-3xl font-bold text-white font-display">Welcome Back, Raphael</h1>
-          <p className="text-sm text-on-surface-variant">Here is a quick overview of your portfolio metrics and content.</p>
+          <p className="text-sm text-on-surface-variant">Manage all sections of your portfolio from a unified dashboard.</p>
         </div>
 
         {/* Stats Grid */}
@@ -90,7 +95,67 @@ export const AdminDashboard: React.FC = () => {
             </Link>
           </div>
 
-          {/* Card 2: Messages */}
+          {/* Card 2: Work Experience */}
+          <div className="glass-panel p-6 rounded-xl border border-outline-variant bg-[#1E293B] space-y-4">
+            <div className="flex justify-between items-center">
+              <span className="material-symbols-outlined text-[#10B981] text-3xl">work</span>
+              <span className="text-xs font-label-caps text-on-surface-variant uppercase">Work Experience</span>
+            </div>
+            <div>
+              <h2 className="text-4xl font-bold text-white">{stats.experienceCount}</h2>
+              <p className="text-xs text-on-surface-variant mt-1">
+                Positions &amp; role history
+              </p>
+            </div>
+            <Link
+              href="/admin/experience"
+              className="inline-flex items-center text-xs font-semibold text-[#10B981] hover:underline cursor-pointer"
+            >
+              Manage experience <span className="material-symbols-outlined text-[14px] ml-1">arrow_forward</span>
+            </Link>
+          </div>
+
+          {/* Card 3: Education & Certs */}
+          <div className="glass-panel p-6 rounded-xl border border-outline-variant bg-[#1E293B] space-y-4">
+            <div className="flex justify-between items-center">
+              <span className="material-symbols-outlined text-[#6366F1] text-3xl">school</span>
+              <span className="text-xs font-label-caps text-on-surface-variant uppercase">Education &amp; Certs</span>
+            </div>
+            <div>
+              <h2 className="text-4xl font-bold text-white">{stats.educationCount + stats.certificationsCount}</h2>
+              <p className="text-xs text-on-surface-variant mt-1">
+                {stats.educationCount} degrees, {stats.certificationsCount} certifications
+              </p>
+            </div>
+            <Link
+              href="/admin/education"
+              className="inline-flex items-center text-xs font-semibold text-[#6366F1] hover:underline cursor-pointer"
+            >
+              Manage education <span className="material-symbols-outlined text-[14px] ml-1">arrow_forward</span>
+            </Link>
+          </div>
+
+          {/* Card 4: Technical Skills */}
+          <div className="glass-panel p-6 rounded-xl border border-outline-variant bg-[#1E293B] space-y-4">
+            <div className="flex justify-between items-center">
+              <span className="material-symbols-outlined text-[#F59E0B] text-3xl">monitoring</span>
+              <span className="text-xs font-label-caps text-on-surface-variant uppercase">Technical Skills</span>
+            </div>
+            <div>
+              <h2 className="text-4xl font-bold text-white">{stats.skillsCategoriesCount}</h2>
+              <p className="text-xs text-on-surface-variant mt-1">
+                Structured toolsets &amp; categories
+              </p>
+            </div>
+            <Link
+              href="/admin/skills"
+              className="inline-flex items-center text-xs font-semibold text-[#F59E0B] hover:underline cursor-pointer"
+            >
+              Manage skills <span className="material-symbols-outlined text-[14px] ml-1">arrow_forward</span>
+            </Link>
+          </div>
+
+          {/* Card 5: Messages */}
           <div className="glass-panel p-6 rounded-xl border border-outline-variant bg-[#1E293B] space-y-4">
             <div className="flex justify-between items-center">
               <span className={`material-symbols-outlined text-3xl ${stats.unreadMessagesCount > 0 ? 'text-[#10B981] animate-pulse' : 'text-[#94A3B8]'}`}>
@@ -112,21 +177,21 @@ export const AdminDashboard: React.FC = () => {
             </Link>
           </div>
 
-          {/* Card 3: CV Status */}
+          {/* Card 6: CV Status */}
           <div className="glass-panel p-6 rounded-xl border border-outline-variant bg-[#1E293B] space-y-4">
             <div className="flex justify-between items-center">
-              <span className="material-symbols-outlined text-[#6366F1] text-3xl">file_present</span>
-              <span className="text-xs font-label-caps text-on-surface-variant uppercase">CV Status</span>
+              <span className="material-symbols-outlined text-[#EC4899] text-3xl">file_present</span>
+              <span className="text-xs font-label-caps text-on-surface-variant uppercase">CV Manager</span>
             </div>
             <div>
               <h2 className="text-xl font-bold text-white truncate">Raphael-Akpere-CV</h2>
               <p className="text-xs text-on-surface-variant mt-1">
-                Managed from CV Manager
+                Download &amp; update resume PDF
               </p>
             </div>
             <Link
               href="/admin/cv"
-              className="inline-flex items-center text-xs font-semibold text-[#3B82F6] hover:underline cursor-pointer"
+              className="inline-flex items-center text-xs font-semibold text-[#EC4899] hover:underline cursor-pointer"
             >
               CV management <span className="material-symbols-outlined text-[14px] ml-1">arrow_forward</span>
             </Link>
