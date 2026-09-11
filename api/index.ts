@@ -466,20 +466,33 @@ const authenticateAdmin = (req: any, res: any, next: any) => {
 
 /* ── PUBLIC ENDPOINTS ── */
 
-// Get public projects (published and ordered)
+// Get public projects (published and ordered, supports optional featured query)
 app.get('/api/projects', async (req, res) => {
+  const { featured } = req.query;
   try {
     if (sql) {
-      const projects = await sql`
-        SELECT * FROM projects 
-        WHERE published = true 
-        ORDER BY display_order ASC, id ASC
-      `;
+      let projects;
+      if (featured === 'true') {
+        projects = await sql`
+          SELECT * FROM projects 
+          WHERE published = true AND featured = true 
+          ORDER BY display_order ASC, id ASC
+        `;
+      } else {
+        projects = await sql`
+          SELECT * FROM projects 
+          WHERE published = true 
+          ORDER BY display_order ASC, id ASC
+        `;
+      }
       return res.json(projects);
     } else {
-      const projects = mockProjects
+      let projects = mockProjects
         .filter((p) => p.published)
         .sort((a, b) => a.display_order - b.display_order);
+      if (featured === 'true') {
+        projects = projects.filter((p) => p.featured);
+      }
       return res.json(projects);
     }
   } catch (err: any) {

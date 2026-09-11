@@ -10,6 +10,7 @@ import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 
 // Pages
+import { AllProjects } from './pages/AllProjects';
 import { ProjectDetail } from './components/ProjectDetail';
 import { AdminLogin } from './pages/AdminLogin';
 import { AdminDashboard } from './pages/AdminDashboard';
@@ -45,6 +46,7 @@ function App() {
       <Switch>
         {/* Public Routes */}
         <Route path="/" component={PublicPortfolio} />
+        <Route path="/projects" component={AllProjects} />
         <Route path="/projects/:slug" component={ProjectDetail} />
 
         {/* Admin Authentication */}
