@@ -8,6 +8,13 @@ export const Contact: React.FC = () => {
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText('akpereraphael@gmail.com');
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,13 +34,13 @@ export const Contact: React.FC = () => {
         throw new Error(data.error || 'Failed to send message');
       }
 
-      setSuccess('Thank you! Your message has been successfully sent.');
+      setSuccess('Thank you! Your message has been sent successfully. I will get back to you shortly.');
       setName('');
       setEmail('');
       setSubject('');
       setMessage('');
     } catch (err: any) {
-      setError(err.message);
+      setError(err.message || 'Failed to deliver message');
     } finally {
       setSubmitting(false);
     }
@@ -41,110 +48,111 @@ export const Contact: React.FC = () => {
 
   return (
     <section
-      className="relative flex flex-col justify-center items-center py-16 px-6 rounded-2xl overflow-hidden border border-outline-variant bg-[#1E293B]"
+      className="relative flex flex-col justify-center items-center py-16 px-6 sm:px-10 rounded-3xl overflow-hidden border border-white/10 bg-[#0F172A]/50 backdrop-blur-2xl cyber-grid"
       id="contact"
     >
-      {/* Background radial glow */}
-      <div
-        className="absolute inset-0 opacity-15 pointer-events-none"
-        style={{
-          backgroundImage: 'radial-gradient(#3B82F6 1px, transparent 1px)',
-          backgroundSize: '32px 32px',
-        }}
-      />
+      {/* Background radial glow accents */}
+      <div className="absolute top-0 right-1/4 w-[400px] h-[300px] bg-cyan-500/10 blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-0 left-1/4 w-[400px] h-[300px] bg-emerald-500/10 blur-[120px] rounded-full pointer-events-none" />
 
-      <div className="relative z-10 flex flex-col items-center w-full max-w-2xl space-y-8">
+      <div className="relative z-10 flex flex-col items-center w-full max-w-3xl space-y-8">
         
         {/* Title Area */}
         <div className="text-center space-y-3">
-          <h2 className="font-headline-lg text-3xl font-bold text-white">
+          <div className="inline-flex items-center space-x-2 text-cyan-400 text-xs font-code-sm uppercase tracking-widest">
+            <span className="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+            <span>Initiate Collaboration</span>
+          </div>
+          <h2 className="font-headline-lg text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
             Have a problem that needs data or technology?
           </h2>
-          <p className="text-[#3B82F6] text-xl font-semibold">Let's build a practical solution.</p>
+          <p className="gradient-text-cyan-blue text-lg sm:text-xl font-semibold">
+            Let's engineer a practical, scalable solution.
+          </p>
         </div>
 
         {/* Feedback Alerts */}
         {error && (
-          <div className="w-full p-4 bg-red-950/30 border border-red-500/50 rounded-lg text-sm text-red-200 flex items-center space-x-2">
-            <span className="material-symbols-outlined text-red-500">error</span>
+          <div className="w-full p-4 bg-red-950/40 border border-red-500/50 rounded-2xl text-sm text-red-200 flex items-center space-x-3">
+            <span className="material-symbols-outlined text-red-400">error</span>
             <span>{error}</span>
           </div>
         )}
 
         {success && (
-          <div className="w-full p-4 bg-emerald-950/30 border border-emerald-500/50 rounded-lg text-sm text-emerald-200 flex items-center space-x-2">
-            <span className="material-symbols-outlined text-emerald-500">check_circle</span>
+          <div className="w-full p-4 bg-emerald-950/40 border border-emerald-500/50 rounded-2xl text-sm text-emerald-200 flex items-center space-x-3">
+            <span className="material-symbols-outlined text-emerald-400">check_circle</span>
             <span>{success}</span>
           </div>
         )}
 
         {/* Contact Form */}
         <form onSubmit={handleSubmit} className="w-full space-y-4 text-left">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="space-y-1.5">
-              <label className="text-xs font-label-caps text-on-surface-variant tracking-wider uppercase">Your Name</label>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <label className="text-xs font-code-sm text-slate-300 tracking-wider uppercase">Your Name</label>
               <input
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full px-4 py-2.5 bg-[#0F172A] border border-[#334155] rounded-lg text-white text-sm focus:border-[#3B82F6] focus:outline-none transition-colors"
-                placeholder="John Doe"
+                className="w-full px-4 py-3 bg-[#090A0F]/80 border border-white/10 rounded-xl text-white text-sm focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-400/50 transition-all placeholder:text-slate-600"
+                placeholder="e.g. Alex Morgan"
                 required
               />
             </div>
-            <div className="space-y-1.5">
-              <label className="text-xs font-label-caps text-on-surface-variant tracking-wider uppercase">Email Address</label>
+            <div className="space-y-2">
+              <label className="text-xs font-code-sm text-slate-300 tracking-wider uppercase">Email Address</label>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-2.5 bg-[#0F172A] border border-[#334155] rounded-lg text-white text-sm focus:border-[#3B82F6] focus:outline-none transition-colors"
-                placeholder="john@example.com"
+                className="w-full px-4 py-3 bg-[#090A0F]/80 border border-white/10 rounded-xl text-white text-sm focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-400/50 transition-all placeholder:text-slate-600"
+                placeholder="alex@company.com"
                 required
               />
             </div>
           </div>
 
-          <div className="space-y-1.5">
-            <label className="text-xs font-label-caps text-on-surface-variant tracking-wider uppercase">Subject</label>
+          <div className="space-y-2">
+            <label className="text-xs font-code-sm text-slate-300 tracking-wider uppercase">Subject</label>
             <input
               type="text"
               value={subject}
               onChange={(e) => setSubject(e.target.value)}
-              className="w-full px-4 py-2.5 bg-[#0F172A] border border-[#334155] rounded-lg text-white text-sm focus:border-[#3B82F6] focus:outline-none transition-colors"
-              placeholder="Inquiry about data analysis / dashboard design"
+              className="w-full px-4 py-3 bg-[#090A0F]/80 border border-white/10 rounded-xl text-white text-sm focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-400/50 transition-all placeholder:text-slate-600"
+              placeholder="Inquiry regarding data pipeline / dashboard architecture"
               required
             />
           </div>
 
-          <div className="space-y-1.5">
-            <label className="text-xs font-label-caps text-on-surface-variant tracking-wider uppercase">Message</label>
+          <div className="space-y-2">
+            <label className="text-xs font-code-sm text-slate-300 tracking-wider uppercase">Message</label>
             <textarea
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               rows={5}
-              className="w-full px-4 py-2.5 bg-[#0F172A] border border-[#334155] rounded-lg text-white text-sm focus:border-[#3B82F6] focus:outline-none resize-none transition-colors"
-              placeholder="Hi Raphael, I have a dataset that needs cleaning and a dashboard to build..."
+              className="w-full px-4 py-3 bg-[#090A0F]/80 border border-white/10 rounded-xl text-white text-sm focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-400/50 resize-none transition-all placeholder:text-slate-600"
+              placeholder="Hi Raphael, I have a dataset that needs cleaning, predictive analysis, and an executive dashboard..."
               required
             />
           </div>
 
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-4 pt-2">
-            <div className="flex gap-4 self-start sm:self-auto">
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-4 pt-4">
+            <div className="flex gap-3 self-start sm:self-auto">
               <a
-                className="inline-flex justify-center items-center px-4 py-2 bg-transparent border border-[#334155] text-white font-semibold rounded-lg hover:bg-[#0F172A] hover:border-[#475569] transition-colors"
+                className="inline-flex items-center px-4 py-2.5 bg-slate-900 border border-white/10 text-slate-300 hover:text-white text-xs font-semibold rounded-xl hover:bg-slate-800 transition-colors"
                 href="/api/cv"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <span className="material-symbols-outlined mr-2">visibility</span>
+                <span className="material-symbols-outlined text-sm mr-1.5 text-cyan-400">visibility</span>
                 View CV
               </a>
               <a
-                className="inline-flex justify-center items-center px-4 py-2 bg-transparent border border-[#334155] text-white font-semibold rounded-lg hover:bg-[#0F172A] hover:border-[#475569] transition-colors"
+                className="inline-flex items-center px-4 py-2.5 bg-slate-900 border border-white/10 text-slate-300 hover:text-white text-xs font-semibold rounded-xl hover:bg-slate-800 transition-colors"
                 href="/api/cv?download=true"
               >
-                <span className="material-symbols-outlined mr-2">download</span>
+                <span className="material-symbols-outlined text-sm mr-1.5 text-emerald-400">download</span>
                 Download CV
               </a>
             </div>
@@ -152,45 +160,53 @@ export const Contact: React.FC = () => {
             <button
               type="submit"
               disabled={submitting}
-              className="inline-flex justify-center items-center px-8 py-3 bg-[#3B82F6] text-white font-semibold rounded-lg hover:bg-blue-600 transition-colors w-full sm:w-auto disabled:opacity-50 disabled:cursor-not-allowed glow-effect active:scale-98 transition-transform"
+              className="w-full sm:w-auto inline-flex justify-center items-center px-8 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-semibold text-sm rounded-xl disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-cyan-500/20 glow-effect active:scale-95 transition-all"
             >
-              {submitting ? 'Sending Message...' : 'Send Message'}
+              {submitting ? 'Sending Message...' : 'Send Inquiry'}
+            </button>
+          </div>
+        </form>
+
+        {/* Quick Contact & Social Handles */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-8 w-full border-t border-white/10 font-code-sm">
+          <div className="p-4 rounded-2xl bg-[#090A0F]/60 border border-white/5 flex flex-col items-center text-center space-y-1">
+            <span className="text-[11px] text-slate-400 uppercase">Direct Email</span>
+            <button
+              type="button"
+              onClick={handleCopyEmail}
+              className="text-xs font-semibold text-cyan-400 hover:text-cyan-300 flex items-center space-x-1 transition-colors"
+              title="Click to copy"
+            >
+              <span>akpereraphael@gmail.com</span>
+              <span className="material-symbols-outlined text-[14px]">
+                {copied ? 'check' : 'content_copy'}
+              </span>
             </button>
           </div>
 
-        </form>
-
-        {/* Contact Links Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-8 w-full max-w-lg border-t border-[#334155]">
-          <div className="flex flex-col items-center space-y-1">
-            <span className="text-xs font-label-caps text-on-surface-variant tracking-wider uppercase">Email</span>
-            <a
-              href="mailto:akpereraphael@gmail.com"
-              className="text-sm font-semibold text-white hover:text-[#3B82F6] transition-colors"
-            >
-              akpereraphael@gmail.com
-            </a>
-          </div>
-          <div className="flex flex-col items-center space-y-1">
-            <span className="text-xs font-label-caps text-on-surface-variant tracking-wider uppercase">LinkedIn</span>
+          <div className="p-4 rounded-2xl bg-[#090A0F]/60 border border-white/5 flex flex-col items-center text-center space-y-1">
+            <span className="text-[11px] text-slate-400 uppercase">Professional Network</span>
             <a
               href="https://linkedin.com/in/raphael-akpere-0a4120287"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm font-semibold text-white hover:text-[#3B82F6] transition-colors"
+              className="text-xs font-semibold text-slate-200 hover:text-cyan-400 transition-colors flex items-center space-x-1"
             >
-              linkedin.com/in/akpere
+              <span>linkedin.com/in/akpere</span>
+              <span className="material-symbols-outlined text-[14px]">open_in_new</span>
             </a>
           </div>
-          <div className="flex flex-col items-center space-y-1">
-            <span className="text-xs font-label-caps text-on-surface-variant tracking-wider uppercase">GitHub</span>
+
+          <div className="p-4 rounded-2xl bg-[#090A0F]/60 border border-white/5 flex flex-col items-center text-center space-y-1">
+            <span className="text-[11px] text-slate-400 uppercase">Open Source</span>
             <a
               href="https://github.com/Akpere38"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm font-semibold text-white hover:text-[#3B82F6] transition-colors"
+              className="text-xs font-semibold text-slate-200 hover:text-cyan-400 transition-colors flex items-center space-x-1"
             >
-              github.com/Akpere38
+              <span>github.com/Akpere38</span>
+              <span className="material-symbols-outlined text-[14px]">open_in_new</span>
             </a>
           </div>
         </div>
@@ -199,3 +215,4 @@ export const Contact: React.FC = () => {
     </section>
   );
 };
+

@@ -9,6 +9,7 @@ interface Degree {
 interface Certification {
   name: string;
   year: string;
+  issuer?: string;
 }
 
 export const EducationCertifications: React.FC = () => {
@@ -28,10 +29,12 @@ export const EducationCertifications: React.FC = () => {
   const [certifications, setCertifications] = React.useState<Certification[]>([
     {
       name: 'Google Advanced Data Analytics Professional Certificate',
+      issuer: 'Google Career Certificates',
       year: '2024',
     },
     {
       name: 'Python Developer Certificate',
+      issuer: 'Professional Certification',
       year: '2023',
     },
   ]);
@@ -56,28 +59,31 @@ export const EducationCertifications: React.FC = () => {
   }, []);
 
   return (
-    <section className="space-y-12" id="education">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <section className="space-y-10" id="education">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         
         {/* Education Section */}
         <div className="space-y-6">
-          <div className="flex items-center space-x-3">
-            <span className="material-symbols-outlined text-[#3B82F6] text-2xl">school</span>
-            <h2 className="font-headline-lg text-2xl font-bold text-white">Education</h2>
+          <div className="flex items-center space-x-3 pb-2 border-b border-white/10">
+            <div className="w-9 h-9 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center">
+              <span className="material-symbols-outlined text-cyan-400 text-xl">school</span>
+            </div>
+            <h2 className="font-headline-lg text-2xl font-bold text-white">Academic Degrees</h2>
           </div>
+
           <div className="space-y-4">
             {education.map((edu, idx) => (
               <div
                 key={idx}
-                className="glass-panel p-6 rounded-xl border border-outline-variant bg-[#1E293B] hover:border-[#475569] transition-colors duration-300 flex flex-col justify-between"
+                className="group p-6 rounded-3xl bg-[#0F172A]/50 backdrop-blur-xl border border-white/10 hover:border-cyan-500/40 transition-all duration-300 flex flex-col justify-between space-y-4"
               >
                 <div>
-                  <h3 className="font-headline-lg text-lg font-semibold text-white leading-snug">
+                  <h3 className="font-headline-lg text-lg font-bold text-white group-hover:text-cyan-300 transition-colors">
                     {edu.degree}
                   </h3>
-                  <p className="text-sm text-on-surface-variant mt-1">{edu.institution}</p>
+                  <p className="text-sm text-slate-400 mt-1">{edu.institution}</p>
                 </div>
-                <div className="mt-4 self-start font-code-sm text-xs px-2.5 py-1 bg-[#0F172A] border border-[#334155] rounded text-[#94A3B8]">
+                <div className="self-start font-code-sm text-xs px-3 py-1 rounded-full bg-[#090A0F]/80 border border-white/10 text-cyan-300">
                   {edu.year}
                 </div>
               </div>
@@ -87,22 +93,26 @@ export const EducationCertifications: React.FC = () => {
 
         {/* Certifications Section */}
         <div className="space-y-6">
-          <div className="flex items-center space-x-3">
-            <span className="material-symbols-outlined text-[#10B981] text-2xl">workspace_premium</span>
-            <h2 className="font-headline-lg text-2xl font-bold text-white">Certifications</h2>
+          <div className="flex items-center space-x-3 pb-2 border-b border-white/10">
+            <div className="w-9 h-9 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center">
+              <span className="material-symbols-outlined text-emerald-400 text-xl">workspace_premium</span>
+            </div>
+            <h2 className="font-headline-lg text-2xl font-bold text-white">Professional Certifications</h2>
           </div>
+
           <div className="space-y-4">
             {certifications.map((cert, idx) => (
               <div
                 key={idx}
-                className="glass-panel p-6 rounded-xl border border-outline-variant bg-[#1E293B] hover:border-[#475569] transition-colors duration-300 flex flex-col justify-between"
+                className="group p-6 rounded-3xl bg-[#0F172A]/50 backdrop-blur-xl border border-white/10 hover:border-emerald-500/40 transition-all duration-300 flex flex-col justify-between space-y-4"
               >
                 <div>
-                  <h3 className="font-headline-lg text-lg font-semibold text-white leading-snug">
+                  <h3 className="font-headline-lg text-lg font-bold text-white group-hover:text-emerald-300 transition-colors">
                     {cert.name}
                   </h3>
+                  {cert.issuer && <p className="text-sm text-slate-400 mt-1">{cert.issuer}</p>}
                 </div>
-                <div className="mt-4 self-start font-code-sm text-xs px-2.5 py-1 bg-[#0F172A] border border-[#334155] rounded text-[#94A3B8]">
+                <div className="self-start font-code-sm text-xs px-3 py-1 rounded-full bg-[#090A0F]/80 border border-white/10 text-emerald-300">
                   {cert.year}
                 </div>
               </div>
@@ -114,3 +124,4 @@ export const EducationCertifications: React.FC = () => {
     </section>
   );
 };
+

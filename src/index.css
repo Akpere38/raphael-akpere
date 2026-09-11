@@ -1,68 +1,77 @@
 @import "tailwindcss";
+@import "./stitch-tokens.css";
 
 @theme {
-  --color-on-surface-variant: #c6c6cd;
-  --color-primary-fixed-dim: #bec6e0;
-  --color-on-primary-fixed: #131b2e;
-  --color-outline: #909097;
-  --color-surface-container-high: #272a2c;
-  --color-on-secondary-fixed: #001a42;
-  --color-tertiary-container: #081828;
-  --color-primary: #bec6e0;
-  --color-surface-container-low: #191c1e;
-  --color-inverse-on-surface: #2d3133;
-  --color-surface-container: #1d2022;
-  --color-surface-tint: #bec6e0;
-  --color-surface-container-lowest: #0b0f10;
-  --color-inverse-primary: #565e74;
-  --color-primary-fixed: #dae2fd;
-  --color-surface-dim: #101415;
-  --color-on-secondary: #002e6a;
-  --color-error: #ffb4ab;
-  --color-on-secondary-fixed-variant: #004395;
-  --color-on-tertiary-fixed: #0d1c2d;
-  --color-on-background: #e0e3e5;
-  --color-on-error-container: #ffdad6;
-  --color-secondary-fixed: #d8e2ff;
-  --color-on-primary-fixed-variant: #3f465c;
-  --color-secondary: #adc6ff;
-  --color-outline-variant: #45464d;
-  --color-error-container: #93000a;
-  --color-surface-variant: #323537;
-  --color-surface-bright: #363a3b;
-  --color-on-tertiary-fixed-variant: #39485a;
-  --color-inverse-surface: #e0e3e5;
-  --color-on-tertiary: #233143;
-  --color-tertiary: #b9c8de;
-  --color-surface-container-highest: #323537;
-  --color-primary-container: #0f172a;
-  --color-on-primary-container: #798098;
-  --color-on-surface: #e0e3e5;
-  --color-secondary-container: #0566d9;
-  --color-secondary-fixed-dim: #adc6ff;
-  --color-on-tertiary-container: #738296;
-  --color-on-secondary-container: #e6ecff;
-  --color-tertiary-fixed: #d4e4fa;
-  --color-on-error: #690005;
-  --color-background: #101415;
+  --color-on-surface-variant: #94A3B8;
+  --color-primary-fixed-dim: #38BDF8;
+  --color-on-primary-fixed: #090A0F;
+  --color-outline: #334155;
+  --color-surface-container-high: #1E293B;
+  --color-on-secondary-fixed: #090A0F;
+  --color-tertiary-container: #0F172A;
+  --color-primary: #38BDF8;
+  --color-surface-container-low: #0B1120;
+  --color-inverse-on-surface: #090A0F;
+  --color-surface-container: #0F172A;
+  --color-surface-tint: #38BDF8;
+  --color-surface-container-lowest: #090A0F;
+  --color-inverse-primary: #0284C7;
+  --color-primary-fixed: #E0F2FE;
+  --color-surface-dim: #090A0F;
+  --color-on-secondary: #090A0F;
+  --color-error: #F87171;
+  --color-on-secondary-fixed-variant: #0369A1;
+  --color-on-tertiary-fixed: #064E3B;
+  --color-on-background: #F8FAFC;
+  --color-on-error-container: #FEE2E2;
+  --color-secondary-fixed: #CCFBF1;
+  --color-on-primary-fixed-variant: #075985;
+  --color-secondary: #34D399;
+  --color-outline-variant: #1E293B;
+  --color-error-container: #7F1D1D;
+  --color-surface-variant: #1E293B;
+  --color-surface-bright: #334155;
+  --color-on-tertiary-fixed-variant: #065F46;
+  --color-inverse-surface: #F8FAFC;
+  --color-on-tertiary: #090A0F;
+  --color-tertiary: #10B981;
+  --color-surface-container-highest: #1E293B;
+  --color-primary-container: #0F172A;
+  --color-on-primary-container: #94A3B8;
+  --color-on-surface: #F8FAFC;
+  --color-secondary-container: #065F46;
+  --color-secondary-fixed-dim: #6EE7B7;
+  --color-on-tertiary-container: #A7F3D0;
+  --color-on-secondary-container: #D1FAE5;
+  --color-tertiary-fixed: #D1FAE5;
+  --color-on-error: #450A0A;
+  --color-background: #090A0F;
 
-  --radius-default: 0.125rem;
-  --radius-lg: 0.25rem;
-  --radius-xl: 0.5rem;
-  --radius-full: 0.75rem;
+  --radius-default: 0.25rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-full: 9999px;
 
-  --spacing-section-gap: 80px;
+  --spacing-section-gap: 88px;
   --spacing-margin-mobile: 16px;
   --spacing-unit: 4px;
   --spacing-gutter: 24px;
-  --spacing-container-max: 1120px;
+  --spacing-container-max: 1180px;
 
-  --font-headline-lg: "Geist", sans-serif;
-  --font-display: "Geist", sans-serif;
+  --font-headline-lg: "Geist", "Inter", sans-serif;
+  --font-display: "Geist", "Inter", sans-serif;
   --font-body-md: "Inter", sans-serif;
-  --font-label-caps: "Geist", sans-serif;
+  --font-label-caps: "Geist", "Inter", sans-serif;
   --font-code-sm: "JetBrains Mono", monospace;
-  --font-headline-lg-mobile: "Geist", sans-serif;
+  --font-headline-lg-mobile: "Geist", "Inter", sans-serif;
+}
+
+body {
+  background-color: #090A0F;
+  color: #F8FAFC;
+  font-family: var(--font-body-md);
+  min-height: 100vh;
 }
 
 @layer utilities {
@@ -73,19 +82,28 @@
     background: transparent;
   }
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    background-color: #334155;
+    background-color: #1E293B;
     border-radius: 4px;
   }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: #334155;
+  }
   .glow-effect {
-    transition: box-shadow 0.3s ease;
+    transition: all 0.3s ease;
   }
   .glow-effect:hover {
-    box-shadow: 0 0 15px 0 rgba(59, 130, 246, 0.2);
+    box-shadow: 0 0 20px 0 rgba(56, 189, 248, 0.35);
+  }
+  .glow-effect-emerald:hover {
+    box-shadow: 0 0 20px 0 rgba(16, 185, 129, 0.35);
   }
   .glass-panel {
-    background: rgba(30, 41, 59, 0.8);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid #334155;
+    background: rgba(15, 23, 42, 0.70);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .glass-panel:hover {
+    border-color: rgba(56, 189, 248, 0.35);
   }
 }

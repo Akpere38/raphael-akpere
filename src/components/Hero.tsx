@@ -1,81 +1,107 @@
 import React from 'react';
 
 export const Hero: React.FC = () => {
+  const stackChips = [
+    { label: 'Python', icon: 'code' },
+    { label: 'SQL', icon: 'database' },
+    { label: 'Power BI', icon: 'insights' },
+    { label: 'FastAPI', icon: 'api' },
+    { label: 'PostgreSQL', icon: 'storage' },
+    { label: 'React', icon: 'web' },
+    { label: 'Tableau', icon: 'monitoring' },
+    { label: 'Streamlit', icon: 'speed' },
+  ];
+
   return (
     <section
-      className="relative min-h-[80vh] flex flex-col justify-center items-center text-center py-20 rounded-2xl overflow-hidden border border-outline-variant bg-[#1E293B] mt-6"
+      className="relative min-h-[85vh] flex flex-col justify-center items-center text-center py-16 md:py-24 rounded-3xl overflow-hidden border border-white/10 bg-[#0F172A]/40 backdrop-blur-xl mt-6 cyber-grid"
       id="home"
     >
-      {/* Abstract Background Pattern */}
-      <div
-        className="absolute inset-0 opacity-10 pointer-events-none"
-        style={{
-          backgroundImage: 'radial-gradient(#3B82F6 1px, transparent 1px)',
-          backgroundSize: '24px 24px',
-        }}
-      />
-      <div className="relative z-10 flex flex-col items-center max-w-3xl px-4 space-y-8 animate-fade-in">
-        <div className="relative group mb-2">
-          <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-indigo-500 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-500"></div>
-          <img
-            alt="Raphael Akpere, Data Analyst and Software Developer"
-            className="relative w-28 h-28 md:w-36 md:h-36 rounded-2xl border-2 border-[#334155] object-cover object-top shadow-xl"
-            src="/raphael-akpere-profile.png"
-          />
-        </div>
-        <h1 className="font-display text-4xl md:text-[56px] text-white leading-tight font-bold">
-          Data, Software &amp; <br />
-          <span className="text-[#3B82F6]">Digital Solutions</span>
-        </h1>
-        <p className="font-body-md text-on-surface-variant max-w-2xl text-lg">
-          Turning data, business requirements and technology into practical digital solutions.
-        </p>
+      {/* Ambient background glow mesh */}
+      <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[600px] h-[350px] bg-cyan-500/15 blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute -bottom-24 right-10 w-[400px] h-[250px] bg-emerald-500/10 blur-[100px] rounded-full pointer-events-none" />
+      <div className="absolute top-1/2 left-10 w-[350px] h-[250px] bg-blue-600/10 blur-[100px] rounded-full pointer-events-none" />
+
+      <div className="relative z-10 flex flex-col items-center max-w-4xl px-4 md:px-6 space-y-8 animate-fade-in">
         
-        {/* Core skills keywords */}
-        <div className="flex flex-wrap justify-center gap-3 mt-4">
-          <span className="font-code-sm text-sm px-3 py-1 bg-[#0F172A] border border-[#334155] rounded-md text-[#94A3B8]">
-            Data Analytics
+        {/* Available for Work Status Badge */}
+        <div className="inline-flex items-center space-x-2.5 px-4 py-1.5 rounded-full bg-[#0F172A]/80 border border-emerald-500/30 text-emerald-400 text-xs font-code-sm shadow-lg shadow-emerald-950/40">
+          <span className="relative flex h-2.5 w-2.5">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
           </span>
-          <span className="font-code-sm text-sm px-3 py-1 bg-[#0F172A] border border-[#334155] rounded-md text-[#94A3B8]">
-            Python
-          </span>
-          <span className="font-code-sm text-sm px-3 py-1 bg-[#0F172A] border border-[#334155] rounded-md text-[#94A3B8]">
-            SQL
-          </span>
-          <span className="font-code-sm text-sm px-3 py-1 bg-[#0F172A] border border-[#334155] rounded-md text-[#94A3B8]">
-            Business Intelligence
-          </span>
-          <span className="font-code-sm text-sm px-3 py-1 bg-[#0F172A] border border-[#334155] rounded-md text-[#94A3B8]">
-            Software Development
-          </span>
+          <span className="font-medium tracking-wide">Open to Data Analyst &amp; Software Developer Roles</span>
         </div>
 
-        {/* Call to actions */}
-        <div className="flex flex-col sm:flex-row gap-4 mt-8 w-full sm:w-auto">
+        {/* Profile Headshot Card with Neon Rim Lighting */}
+        <div className="relative group my-2">
+          <div className="absolute -inset-1.5 bg-gradient-to-r from-cyan-500 via-blue-600 to-emerald-500 rounded-3xl blur-md opacity-40 group-hover:opacity-75 transition duration-500"></div>
+          <div className="relative p-1 rounded-3xl bg-[#090A0F] border border-white/15">
+            <img
+              alt="Raphael Akpere — Data Analyst and Software Developer"
+              className="w-32 h-32 md:w-40 md:h-40 rounded-2xl object-cover object-top shadow-2xl"
+              src="/assets/stitch/raphael-portrait.png"
+              onError={(e) => {
+                // Fallback to original image if portrait file has issue
+                (e.target as HTMLImageElement).src = '/raphael-akpere-profile.png';
+              }}
+            />
+          </div>
+        </div>
+
+        {/* Headline */}
+        <div className="space-y-4">
+          <h1 className="font-display text-4xl sm:text-5xl md:text-6xl text-white font-extrabold tracking-tight leading-[1.15]">
+            Data, Software &amp; <br />
+            <span className="gradient-text-cyan-blue">Digital Solutions</span>
+          </h1>
+          <p className="font-body-md text-slate-300 max-w-2xl mx-auto text-base sm:text-lg md:text-xl font-normal leading-relaxed">
+            Turning data, business requirements, and technology into practical digital solutions. 
+            Bridging analytical rigor with modern software engineering.
+          </p>
+        </div>
+
+        {/* Live Tech Stack Monospace Ticker */}
+        <div className="flex flex-wrap justify-center gap-2.5 max-w-2xl pt-2">
+          {stackChips.map((tech) => (
+            <span
+              key={tech.label}
+              className="font-code-sm text-xs px-3.5 py-1.5 bg-[#0F172A]/80 border border-white/10 rounded-lg text-slate-300 font-medium hover:border-cyan-400/50 hover:text-cyan-300 hover:bg-[#1E293B] transition-all duration-200"
+            >
+              {tech.label}
+            </span>
+          ))}
+        </div>
+
+        {/* Hero CTAs */}
+        <div className="flex flex-col sm:flex-row items-center gap-4 pt-4 w-full sm:w-auto">
           <a
-            className="inline-flex justify-center items-center px-8 py-3 bg-[#3B82F6] text-white font-semibold rounded-lg hover:bg-blue-600 transition-colors w-full sm:w-auto glow-effect active:scale-98 transition-transform"
+            className="w-full sm:w-auto inline-flex justify-center items-center px-8 py-3.5 bg-gradient-to-r from-cyan-500 via-blue-600 to-blue-700 hover:from-cyan-400 hover:to-blue-600 text-white font-semibold text-sm rounded-xl shadow-lg shadow-cyan-500/25 glow-effect active:scale-95 transition-all"
             href="#projects"
           >
+            <span className="material-symbols-outlined text-[18px] mr-2">rocket_launch</span>
             Explore My Work
           </a>
           <a
-            className="inline-flex justify-center items-center px-8 py-3 bg-transparent border border-[#334155] text-white font-semibold rounded-lg hover:bg-[#1E293B] hover:border-[#475569] transition-colors w-full sm:w-auto active:scale-98 transition-transform"
+            className="w-full sm:w-auto inline-flex justify-center items-center px-6 py-3.5 bg-[#0F172A]/80 hover:bg-[#1E293B] border border-white/10 hover:border-white/20 text-slate-200 hover:text-white font-semibold text-sm rounded-xl transition-all active:scale-95"
             href="/api/cv"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <span className="material-symbols-outlined mr-2">visibility</span>
+            <span className="material-symbols-outlined text-[18px] mr-2 text-cyan-400">visibility</span>
             View CV
           </a>
           <a
-            className="inline-flex justify-center items-center px-8 py-3 bg-transparent border border-[#334155] text-white font-semibold rounded-lg hover:bg-[#1E293B] hover:border-[#475569] transition-colors w-full sm:w-auto active:scale-98 transition-transform"
+            className="w-full sm:w-auto inline-flex justify-center items-center px-6 py-3.5 bg-[#0F172A]/80 hover:bg-[#1E293B] border border-white/10 hover:border-white/20 text-slate-200 hover:text-white font-semibold text-sm rounded-xl transition-all active:scale-95"
             href="/api/cv?download=true"
           >
-            <span className="material-symbols-outlined mr-2">download</span>
+            <span className="material-symbols-outlined text-[18px] mr-2 text-emerald-400">download</span>
             Download CV
           </a>
         </div>
+
       </div>
     </section>
   );
 };
+
