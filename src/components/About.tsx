@@ -11,46 +11,46 @@ interface FocusCard {
 export const About: React.FC = () => {
   const focusAreas: FocusCard[] = [
     {
-      title: 'Data Analysis',
-      description: 'Extracting actionable insights from complex datasets to drive strategic business decisions.',
-      icon: 'query_stats',
-      badge: 'Insights',
-      iconColor: 'text-cyan-400',
-    },
-    {
-      title: 'Business Intelligence',
-      description: 'Designing interactive dashboards and reporting structures for real-time performance monitoring.',
-      icon: 'insights',
-      badge: 'Power BI',
-      iconColor: 'text-emerald-400',
-    },
-    {
-      title: 'Software Development',
-      description: 'Building robust, scalable applications and tools to solve specific operational challenges.',
+      title: 'Full-Stack Web Development',
+      description: 'Building modern, responsive web applications with React, TypeScript, scalable component architectures, and intuitive UI/UX systems.',
       icon: 'integration_instructions',
-      badge: 'Full-Stack',
+      badge: 'React / TS',
       iconColor: 'text-blue-400',
     },
     {
-      title: 'API & Backend',
-      description: 'Architecting reliable backend services and APIs for seamless data flow and integration.',
+      title: 'Backend Engineering & APIs',
+      description: 'Architecting robust, secure backend services and RESTful APIs using Python, Django, FastAPI, Node.js, and token-based authentication.',
       icon: 'api',
-      badge: 'FastAPI / SQL',
+      badge: 'Python / FastAPI',
       iconColor: 'text-cyan-400',
     },
     {
-      title: 'Automation',
-      description: 'Streamlining repetitive workflows through intelligent scripting and automated pipelines.',
-      icon: 'smart_toy',
-      badge: 'Pipelines',
+      title: 'Database Architecture & SQL',
+      description: 'Designing relational schemas, indexing strategies, complex SQL queries, and optimizing PostgreSQL database performance.',
+      icon: 'storage',
+      badge: 'PostgreSQL / SQL',
       iconColor: 'text-emerald-400',
     },
     {
-      title: 'Business Solutions',
-      description: 'Translating complex business requirements into elegant, technology-driven outcomes.',
-      icon: 'lightbulb',
-      badge: 'Strategy',
+      title: 'Data Solutions & Pipelines',
+      description: 'Engineering ETL pipelines, automated ingestion scripts, data cleaning, and validation workflows for high-integrity data systems.',
+      icon: 'sync_alt',
+      badge: 'ETL Pipelines',
+      iconColor: 'text-cyan-400',
+    },
+    {
+      title: 'Analytics & Business Intelligence',
+      description: 'Translating complex, multi-source datasets into actionable operational intelligence, executive KPI dashboards, and reporting models.',
+      icon: 'query_stats',
+      badge: 'BI & Analytics',
       iconColor: 'text-indigo-400',
+    },
+    {
+      title: 'System Reliability & Automation',
+      description: 'Streamlining deployment workflows, clean architecture patterns, script automation, and continuous integration practices.',
+      icon: 'smart_toy',
+      badge: 'Automation',
+      iconColor: 'text-emerald-400',
     },
   ];
 
@@ -60,15 +60,13 @@ export const About: React.FC = () => {
         <div className="space-y-3 max-w-2xl">
           <div className="inline-flex items-center space-x-2 text-cyan-400 text-xs font-code-sm uppercase tracking-widest">
             <span className="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
-            <span>Core Philosophy</span>
+            <span>Core Philosophy &amp; Capabilities</span>
           </div>
           <h2 className="font-headline-lg text-3xl md:text-4xl font-extrabold text-white tracking-tight">
             Engineering Clarity from Complexity
           </h2>
           <p className="text-slate-400 leading-relaxed text-base">
-            I bridge the gap between raw information and strategic action. By combining analytical rigor with
-            software engineering principles, I build systems that not only interpret the past but empower future
-            decisions.
+            I build at the intersection of full-stack software development and data systems. Combining robust backend engineering with deep analytical modeling, I build software that scales reliably and empowers intelligent decisions.
           </p>
         </div>
         <div className="hidden lg:flex items-center space-x-4 px-4 py-3 rounded-2xl bg-[#0F172A]/70 border border-white/10 text-xs text-slate-300 font-code-sm">

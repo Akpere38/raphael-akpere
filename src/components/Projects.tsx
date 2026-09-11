@@ -10,6 +10,8 @@ interface Project {
   github_url?: string;
   demo_url?: string;
   metric?: string;
+  featured?: boolean;
+  published?: boolean;
 }
 
 const DEFAULT_PROJECTS: Project[] = [
@@ -21,6 +23,8 @@ const DEFAULT_PROJECTS: Project[] = [
     technologies: ['Python', 'SQL', 'Excel', 'Data Visualization', 'Pandas'],
     github_url: 'https://github.com/Akpere38',
     metric: '100K+ Records Analyzed',
+    featured: true,
+    published: true,
   },
   {
     id: 1,
@@ -30,6 +34,8 @@ const DEFAULT_PROJECTS: Project[] = [
     technologies: ['Power BI', 'Python', 'Automated Pipelines'],
     github_url: 'https://github.com/Akpere38',
     metric: 'Real-time KPI Engine',
+    featured: true,
+    published: true,
   },
   {
     id: 3,
@@ -39,6 +45,8 @@ const DEFAULT_PROJECTS: Project[] = [
     technologies: ['Python', 'Statistical Analysis', 'Predictive Modeling'],
     github_url: 'https://github.com/Akpere38',
     metric: '1,000+ Patient Cohorts',
+    featured: true,
+    published: true,
   },
   {
     id: 4,
@@ -48,6 +56,8 @@ const DEFAULT_PROJECTS: Project[] = [
     technologies: ['Power BI', 'Risk Analytics', 'KPI Monitoring'],
     github_url: 'https://github.com/Akpere38',
     metric: 'Executive Risk Matrix',
+    featured: true,
+    published: true,
   },
   {
     id: 5,
@@ -57,6 +67,8 @@ const DEFAULT_PROJECTS: Project[] = [
     technologies: ['Data Quality', 'Validation Pipelines', 'Reporting'],
     github_url: 'https://github.com/Akpere38',
     metric: 'Zero-Error Pipelines',
+    featured: true,
+    published: true,
   },
 ];
 
@@ -71,8 +83,10 @@ export const Projects: React.FC = () => {
       })
       .then((data) => {
         if (Array.isArray(data) && data.length > 0) {
-          // Merge with default metrics
-          const merged = data.map((p) => {
+          // Filter to featured projects for the Bento Grid layout, capping at 5
+          const featuredList = data.filter((p) => p.featured);
+          const activeList = featuredList.length >= 3 ? featuredList : data;
+          const merged = activeList.slice(0, 5).map((p) => {
             const match = DEFAULT_PROJECTS.find((d) => d.slug === p.slug || d.title === p.title);
             return {
               ...p,
@@ -101,24 +115,35 @@ export const Projects: React.FC = () => {
         <div className="space-y-3 max-w-2xl">
           <div className="inline-flex items-center space-x-2 text-cyan-400 text-xs font-code-sm uppercase tracking-widest">
             <span className="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
-            <span>Bento Case Studies</span>
+            <span>Featured Systems &amp; Engineering</span>
           </div>
           <h2 className="font-headline-lg text-3xl md:text-4xl font-extrabold text-white tracking-tight">
-            Featured Engineering &amp; Analytics Work
+            Flagship Projects &amp; Data Solutions
           </h2>
           <p className="text-slate-400 leading-relaxed text-base">
-            A curated selection of real projects demonstrating analytical rigor, predictive modeling, automation pipelines, and executive dashboards.
+            A curated selection of production applications, distributed backend services, data pipelines, and full-stack software built for performance and reliability.
           </p>
         </div>
-        <a
-          href="https://github.com/Akpere38"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center space-x-2 px-4 py-2 rounded-xl bg-slate-900 border border-white/10 text-xs font-code-sm text-slate-300 hover:text-white hover:border-cyan-500/40 transition-all self-start md:self-auto"
-        >
-          <span className="material-symbols-outlined text-[16px] text-cyan-400">code</span>
-          <span>View GitHub (@Akpere38)</span>
-        </a>
+        
+        {/* Actions: View All Catalog & GitHub Links */}
+        <div className="flex flex-wrap items-center gap-3 self-start md:self-auto">
+          <Link
+            href="/projects"
+            className="inline-flex items-center space-x-2 px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-500/20 via-blue-600/20 to-cyan-500/20 border border-cyan-500/40 text-xs font-code-sm font-semibold text-cyan-300 hover:text-white hover:border-cyan-400 hover:bg-cyan-500/30 transition-all glow-effect shadow-md"
+          >
+            <span>View All Projects</span>
+            <span className="material-symbols-outlined text-[16px] text-cyan-400">arrow_forward</span>
+          </Link>
+          <a
+            href="https://github.com/Akpere38"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center space-x-2 px-4 py-2 rounded-xl bg-slate-900 border border-white/10 text-xs font-code-sm text-slate-300 hover:text-white hover:border-cyan-500/40 transition-all"
+          >
+            <span className="material-symbols-outlined text-[16px] text-cyan-400">code</span>
+            <span>GitHub (@Akpere38)</span>
+          </a>
+        </div>
       </div>
 
       {/* 12-Column Asymmetric Bento Grid */}

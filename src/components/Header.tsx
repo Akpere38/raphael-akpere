@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'wouter';
 
 export const Header: React.FC = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [location] = useLocation();
+  const isHome = location === '/';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,12 +31,12 @@ export const Header: React.FC = () => {
   }, [isDrawerOpen]);
 
   const navLinks = [
-    { label: 'About', href: '#about' },
-    { label: 'Skills', href: '#skills' },
-    { label: 'Projects', href: '#projects' },
-    { label: 'Experience', href: '#experience' },
-    { label: 'Education', href: '#education' },
-    { label: 'Contact', href: '#contact' },
+    { label: 'About', href: isHome ? '#about' : '/#about' },
+    { label: 'Skills', href: isHome ? '#skills' : '/#skills' },
+    { label: 'Projects', href: isHome ? '#projects' : '/projects' },
+    { label: 'Experience', href: isHome ? '#experience' : '/#experience' },
+    { label: 'Education', href: isHome ? '#education' : '/#education' },
+    { label: 'Contact', href: isHome ? '#contact' : '/#contact' },
   ];
 
   return (
@@ -47,7 +50,7 @@ export const Header: React.FC = () => {
       >
         <div className="flex justify-between items-center px-4 md:px-8 max-w-[1180px] mx-auto">
           {/* Logo & Identity */}
-          <a href="#home" className="flex items-center space-x-3 group">
+          <a href={isHome ? '#home' : '/'} className="flex items-center space-x-3 group">
             <div className="w-10 h-10 rounded-xl bg-[#0F172A] border border-white/10 flex items-center justify-center group-hover:border-cyan-500/50 transition-all duration-300 shadow-md">
               <img
                 src="/assets/stitch/terminal-logo.svg"
@@ -68,7 +71,7 @@ export const Header: React.FC = () => {
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" title="Available for work"></span>
               </div>
               <p className="font-code-sm text-[11px] text-slate-400 tracking-wider uppercase">
-                Data Analyst × Dev
+                Software &amp; Data Engineer
               </p>
             </div>
           </a>
@@ -99,7 +102,7 @@ export const Header: React.FC = () => {
             </a>
             <a
               className="inline-flex items-center justify-center px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white text-xs font-semibold rounded-lg shadow-lg shadow-cyan-500/20 glow-effect transition-all active:scale-95"
-              href="#contact"
+              href={isHome ? '#contact' : '/#contact'}
             >
               Let's Connect
             </a>
@@ -142,12 +145,12 @@ export const Header: React.FC = () => {
               onClick={() => setIsDrawerOpen(false)}
             >
               <span className="material-symbols-outlined text-cyan-400 text-lg">
-                {link.href === '#about' && 'person'}
-                {link.href === '#skills' && 'monitoring'}
-                {link.href === '#projects' && 'code'}
-                {link.href === '#experience' && 'work'}
-                {link.href === '#education' && 'school'}
-                {link.href === '#contact' && 'mail'}
+                {link.label === 'About' && 'person'}
+                {link.label === 'Skills' && 'monitoring'}
+                {link.label === 'Projects' && 'code'}
+                {link.label === 'Experience' && 'work'}
+                {link.label === 'Education' && 'school'}
+                {link.label === 'Contact' && 'mail'}
               </span>
               <span>{link.label}</span>
             </a>
@@ -163,7 +166,7 @@ export const Header: React.FC = () => {
               View CV
             </a>
             <a
-              href="#contact"
+              href={isHome ? '#contact' : '/#contact'}
               onClick={() => setIsDrawerOpen(false)}
               className="w-full flex justify-center items-center py-2.5 px-4 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 text-xs font-semibold text-white"
             >
